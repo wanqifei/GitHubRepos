@@ -1,0 +1,22 @@
+{
+  "name": "timeloging",
+  "version": "1.0.0",
+  "description": "Storage values and timestrap to sql server.",
+  "main": "startup.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wanqifei/GitHubRepos.git"
+  },
+  "author": "Figo666",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wanqifei/GitHubRepos/issues"
+  },
+  "homepage": "https://github.com/wanqifei/GitHubRepos#readme",
+  "dependencies": {
+    "mssql": "^6.0.1"
+  }
+}
