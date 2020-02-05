@@ -15,46 +15,50 @@ const connectconfig = {
     database: 'Historian'
 };
 // const connectstr = 'mssql://sa:P@ssword@localhost/Historian';
+
+
+/*--------------------callback style and use stream------------------------*/
+const cpool = new sql.ConnectionPool(connectconfig);
+cpool.on('error', err => {
+    console.error('SQL error', err);
+});
+var queryStr = 'SELECT * FROM dbo.TimeLog;';
+cpool.connect(err => {
+    if (err) {
+        console.error('connecting error', err);
+        return;
+    }
+    //  retrieve(queryStr);
+    /* for (let n = 67.7; n < 80; n++){
+        insert(n);
+    } */
+    aaRetrieve();
+});
 //async await style  not use stream--------------------------------------------------
-async function fn1() {
+async function aaRetrieve() {
     try {
-        let pool = await sql.connect(connectconfig);
-        let result1 = await pool.request().query('SELECT * FROM dbo.TimeLog;');
+        // let pool = await sql.connect(connectconfig);
+        let result1 = await cpool.request().query(queryStr);
         console.log(result1);
-        console.log('connect successfully!');
-        var data = result1.recordsets[0];
-        
+        let restable = result1.recordset.toTable();
+        console.log(restable);
+        /* var data = result1.recordsets[0];        
         for (let i in data) {
             let instr = '';
             for (let j in data[i]) {
                 instr += j + ': ' + data[i][j] + ' | ';
             }
             console.log(instr);
-        }
-        await pool.close()
+        } */
+        await cpool.close()
     } catch (err) {
         console.log(err);
     }
-};//not used
-
-sql.on('error', err => {
-    console.log('连接失败!');
-});
-
-/*---------------------------------callback style------------------------*/
-const cpool = new sql.ConnectionPool(connectconfig);
-cpool.on('error', err => {
-    console.error('SQL error', err);
-});
-
-cpool.connect(err => {
-    if (err) {
-        console.error('connecting error', err);
-        return;
-    }
-    let request = cpool.request();
+}
+function retrieve(queryStr) {
+    let request = cpool.request();// or: new sql.Request(cpool)
     request.stream = true;
-    request.query('SELECT * FROM dbo.TimeLog;');
+    request.query(queryStr);
     request.on('recordset', columns => {
         console.log('the columns of first recordset:');
         for (let i in columns) {
@@ -76,8 +80,29 @@ cpool.connect(err => {
             console.log(i + ': ' + result[i]);
         }
         cpool.close();
-    });
-});
+    });    
+}
+function insert(value) {
+    /* CREATE PROCEDURE dbo.storeProc
+    @input_val AS FLOAT,
+    @input_cmt AS NVARCHAR(100)
+    AS
+    BEGIN
+    INSERT INTO dbo.TimeLog(val, comment)
+    VALUES
+    (@input_val, @input_cmt)
+    END; */
+    let request = new sql.Request(cpool);
+    request.input('input_val', sql.Float, value)
+        .input('input_cmt', sql.NVarChar, '通过nodejs程序插入的值')
+        .execute('dbo.storeProc', (err, res) => {
+            if (err) {
+                console.error('insert error!', err);
+            }
+            console.log('insert successed.');
+            // console.log(res);            
+        });
+}
  
 // async await style should add try catch clause
 async function asyncawaitfn() {
@@ -107,4 +132,8 @@ async function asyncawaitfn() {
         }
         cpool.close();
     });
-};//not used
+}//not used
+process.on('exit', code => {
+    // cpool.close();
+    console.log('Connection pool is closed.\nThe Code is: ', code);
+})
