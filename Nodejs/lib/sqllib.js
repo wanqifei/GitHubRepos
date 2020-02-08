@@ -35,14 +35,17 @@ cpool.connect(err => {
     //aaRetrieve();
 });
 //async await style  not use stream--------------------------------------------------
-async function aaRetrieve() {
+async function aaRetrieve( res, rej) {
     try {
         // let pool = await sql.connect(connectconfig);
         let result1 = await cpool.request().query(queryStr);
         
-        let restable = result1.recordset.toTable();
+        let restable = result1.recordset;
+        if (res) {
+            res(restable);
+        }
         //console.log(restable);
-        return restable;
+        // return restable;
         /* var data = result1.recordsets[0];        
         for (let i in data) {
             let instr = '';
@@ -54,6 +57,9 @@ async function aaRetrieve() {
         //await cpool.close()
     } catch (err) {
         console.error('Retrieve error!', err);
+        if (rej) {
+            rej(err);
+        }
     }
 }
 function retrieve(queryStr) {
