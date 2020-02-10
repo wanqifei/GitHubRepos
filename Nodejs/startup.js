@@ -29,7 +29,7 @@ function getResponse(req, res) {
     let urlpath = urlobj.pathname;
     if (urlpath == '/lib/sqllib.js') {
         sql.aaRetrieve((data) => {
-            let htmstr = '<tr><th>ID</th><th>Value</th><th>Date and Time</th><th>Comment</th></tr>';
+            let htmstr = '';
             for (let i in data) {
                 htmstr += '<tr>';
                 for (let j in data[i]) {

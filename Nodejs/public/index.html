@@ -4,14 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="./proc.js"></script>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script src="./js/proc.js"></script>
     <title>Time Log</title>
 </head>
 <body>
     <input type="button" value="查询" onclick="retrieveData()">
     <br>
-    <table id=timeLogTb>
-        <tr><th>ID</th><th>Value</th><th>Date and Time</th><th>Comment</th></tr>
+    <table class="table table-bordered table-striped">
+        <thead><tr><th>ID</th><th>Value</th><th>Date and Time</th><th>Comment</th></tr></thead>
+        <tbody id="timeLogTb"></tbody>        
     </table>
+    <script src="./js/jquery.slim.min.js"></script>
+    <script src="./js/popper.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
 </body>
 </html>
