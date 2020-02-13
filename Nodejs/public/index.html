@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +9,38 @@
     <script src="./js/proc.js"></script>
     <title>Time Log</title>
 </head>
+
 <body>
-    <input type="button" value="查询" onclick="retrieveData()">
-    <br>
-    <table class="table table-bordered table-striped">
-        <thead><tr><th>ID</th><th>Value</th><th>Date and Time</th><th>Comment</th></tr></thead>
-        <tbody id="timeLogTb"></tbody>        
-    </table>
+
+    <div class="container-xl">
+        <div class="row">
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark px-0 pl-2">
+                <a href="#" class="navbar-brand"> 
+                    <img src="./image/LOGO_CDI_sm.bmp" height="40rem"> 成都建材院
+                </a>
+            </nav>
+        </div>
+        <div class="row">
+            <input type="button" class="btn btn-info" value="查询" onclick="retrieveData()">
+        </div>
+        <div class="row">
+            <table class="table table-bordered table-striped table-sm">
+                <caption>随机值和插入时间</caption>
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Value</th>
+                        <th>Date and Time</th>
+                        <th>Comment</th>
+                    </tr>
+                </thead>
+                <tbody id="timeLogTb"></tbody>
+            </table>
+        </div>
+    </div>
     <script src="./js/jquery.slim.min.js"></script>
     <script src="./js/popper.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
 </body>
+
 </html>
