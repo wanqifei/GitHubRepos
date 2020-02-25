@@ -11,33 +11,33 @@ const sql = require('mssql');
 const connectconfig = {
     user: 'sa',
     password: 'P@ssword',
-    server: 'WAN_AI',
+    server: 'WANQIFEI',
     database: 'Historian'
 };
 // const connectstr = 'mssql://sa:P@ssword@localhost/Historian';
-
+var queryStr = 'SELECT id, tagname, eroom, meter, devname, circuit, cabinet FROM dbo.TagInfo;';
 
 /*--------------------callback style and use stream------------------------*/
-const cpool = new sql.ConnectionPool(connectconfig);
+/* const cpool = new sql.ConnectionPool(connectconfig);
 cpool.on('error', err => {
     console.error('SQL error', err);
 });
-var queryStr = 'SELECT ID, val, CONVERT(varchar(20), dt ,20) AS DT, comment FROM dbo.TimeLog;';
+
 cpool.connect(err => {
     if (err) {
         console.error('connecting error', err);
         return;
     }
-    //  retrieve(queryStr);
-    /* for (let n = 67.7; n < 80; n++){
+      retrieve(queryStr);
+    for (let n = 67.7; n < 80; n++){
         insert(n);
-    } */
-    //aaRetrieve();
-});
+    } 
+    aaRetrieve();
+});  */
 //async await style  not use stream--------------------------------------------------
 async function aaRetrieve( res, rej) {
     try {
-        // let pool = await sql.connect(connectconfig);
+        let cpool = await sql.connect(connectconfig);
         let result1 = await cpool.request().query(queryStr);
         
         let restable = result1.recordset;
