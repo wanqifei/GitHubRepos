@@ -22,7 +22,7 @@ const cpool = new sql.ConnectionPool(connectconfig);
 cpool.on('error', err => {
     console.error('SQL error', err);
 });
-var queryStr = 'SELECT * FROM dbo.TimeLog;';
+var queryStr = 'SELECT ID, val, CONVERT(varchar(20), dt ,20) AS DT, comment FROM dbo.TimeLog;';
 cpool.connect(err => {
     if (err) {
         console.error('connecting error', err);
@@ -54,7 +54,7 @@ async function aaRetrieve( res, rej) {
             }
             console.log(instr);
         } */
-        //await cpool.close()
+        await cpool.close()
     } catch (err) {
         console.error('Retrieve error!', err);
         if (rej) {
