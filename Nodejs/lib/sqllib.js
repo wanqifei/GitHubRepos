@@ -35,8 +35,12 @@ cpool.connect(err => {
     aaRetrieve();
 });  */
 //async await style  not use stream--------------------------------------------------
-async function aaRetrieve( res, rej) {
+async function aaRetrieve( qStr, res, rej) {
     try {
+        if (qStr) {
+            queryStr = queryStr.slice(0, -1);
+            queryStr += queryStr + ' WHERE ' + qStr + ';';
+        }
         let cpool = await sql.connect(connectconfig);
         let result1 = await cpool.request().query(queryStr);
         

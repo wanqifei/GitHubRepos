@@ -9,7 +9,12 @@ function retrieveData() {
         alert('Ajax is not supported by your browser!')
         return;
     }
-    var rurl = 'lib/sqllib.js?ID=*';
+    var rurl = '../lib/sqllib.js?';
+    var ops = $('#slt01 option:selected');
+    var qStr = ops.val();
+    rurl += qStr + '=';
+    qStr = $('#inpt01').val();
+    rurl += qStr;
 
     xhr.onreadystatechange = handler;
     xhr.open('GET', rurl, true);

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../js/proc.js"></script>
+    <title>Energe Manage System</title>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="navbar flex-sm-nowrap navbar-dark bg-dark py-0 pl-0 w-100">
+                <a href="https://www.cdi-china.com.cn/" class="navbar-brand col-sm-6">
+                    <img src="../image/LOGO_CDI_sm.bmp" height="40rem"> 成都建筑材料工业设计研究院
+                </a>
+                <div class="col-sm-3"></div>
+                <input type="text" class="form-control col-sm-2" placeholder="Search">
+                <ul class="navbar-nav px-1 col-sm-1">
+                    <li class="nav-item text-nowrap"><a href="#" class="nav-link">Sign in</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="row">
+            <nav class="col-sm-1 sidebar bg-dark">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column font-weight-bold">
+                        <!--li class="nav-item"><input type="button" class="btn nav-link" value="查询" onclick="retrieveData()"></li-->
+                        <li class="nav-item"><a href="#" class="nav-link text-active">查询</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link text-light">增加</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link text-light">删除</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link text-light">修改</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <main class="col-sm-auto pt-3 px-3">
+                <h2>能源管理系统电表信息</h2>
+                <div class="input-group my-2">
+                    <div class="input-group-prepend">
+                        <label for="slt01" class="input-group-text">选择筛选属性：</label>
+                        <select name="slt01" id="slt01" class="custom-select">
+                            <option value="" selected>无</option>
+                            <option value="ID">ID值</option>
+                            <option value="tagname">标签名</option>
+                            <option value="eroom">电气室</option>
+                        </select>
+                        <span class="input-group-text"> = </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="输入对应要筛选的值" id='inpt01'>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" onclick="retrieveData()"> 查询 </button>
+                    </div>
+                </div>
+
+                <div class="pre-scrollable">
+                    <table class="table table-bordered table-striped table-sm">
+                        <caption>标签名、电气室、回路、电气柜、子项信息</caption>
+                        <thead class="thead-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>tagname</th>
+                                <!--th>voltage</th-->
+                                <th>eroom</th>
+                                <th>meter</th>
+                                <th>devname</th>
+                                <th>circuit</th>
+                                <th>cabinet</th>
+                                <!--th>uplevel</th>
+                                <th>level</th>
+                                <th>class</th>
+                                <th>item</th-->
+                            </tr>
+                        </thead>
+                        <tbody id="timeLogTb"></tbody>
+                    </table>
+                </div>
+
+            </main>
+
+        </div>
+    </div>
+    <script src="../js/jquery.slim.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+</body>
+
+</html>

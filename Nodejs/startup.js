@@ -27,8 +27,9 @@ function getResponse(req, res) {
     let urlobj = url.parse(req.url);
     console.dir(urlobj);
     let urlpath = urlobj.pathname;
+    let queryStr = urlobj.query;
     if (urlpath == '/lib/sqllib.js') {
-        sql.aaRetrieve((data) => {
+        sql.aaRetrieve( queryStr, (data) => {
             let htmstr = '';
             for (let i in data) {
                 htmstr += '<tr>';
