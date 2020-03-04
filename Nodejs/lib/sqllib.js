@@ -15,7 +15,7 @@ const connectconfig = {
     database: 'Historian'
 };
 // const connectstr = 'mssql://sa:P@ssword@localhost/Historian';
-var queryStr = 'SELECT id, tagname, eroom, meter, devname, circuit, cabinet FROM dbo.TagInfo;';
+
 
 /*--------------------callback style and use stream------------------------*/
 /* const cpool = new sql.ConnectionPool(connectconfig);
@@ -35,11 +35,12 @@ cpool.connect(err => {
     aaRetrieve();
 });  */
 //async await style  not use stream--------------------------------------------------
-async function aaRetrieve( qStr, res, rej) {
+async function aaRetrieve(qStr, res, rej) {
+    var queryStr = 'SELECT id, tagname, eroom, meter, devname, circuit, cabinet FROM dbo.TagInfo;';
     try {
         if (qStr) {
             queryStr = queryStr.slice(0, -1);
-            queryStr += queryStr + ' WHERE ' + qStr + ';';
+            queryStr += ' WHERE ' + qStr + ';';
         }
         let cpool = await sql.connect(connectconfig);
         let result1 = await cpool.request().query(queryStr);

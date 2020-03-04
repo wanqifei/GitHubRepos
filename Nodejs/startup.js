@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const url = require('url');
 const mime = require('mime');
+const qs = require('querystring');
 
 var cnt = 0;
 const root = __dirname + '/public';
@@ -25,10 +26,19 @@ server.listen(3000, () => {
 
 function getResponse(req, res) {
     let urlobj = url.parse(req.url);
+    // url.format(urlobj, { unicode: true });
+    
     console.dir(urlobj);
     let urlpath = urlobj.pathname;
-    let queryStr = urlobj.query;
+    
     if (urlpath == '/lib/sqllib.js') {
+        let parsedQs = qs.parse(urlobj.query);
+        console.dir(parsedQs);
+        let queryStr = '';
+        for (let prop in parsedQs) {
+            queryStr = prop + '=' + parsedQs[prop];
+        }
+        console.log(queryStr);
         sql.aaRetrieve( queryStr, (data) => {
             let htmstr = '';
             for (let i in data) {
@@ -42,6 +52,10 @@ function getResponse(req, res) {
             res.setHeader('Content-Type', 'text/html');
             res.write(htmstr);
             res.end();
+        }, (err) => {
+                res.statusCode = 404;
+                res.setHeader('Content-Type', 'text/plain');
+                res.end(err.message);
         });
 
     } else {

@@ -11,10 +11,16 @@ function retrieveData() {
     }
     var rurl = '../lib/sqllib.js?';
     var ops = $('#slt01 option:selected');
-    var qStr = ops.val();
-    rurl += qStr + '=';
-    qStr = $('#inpt01').val();
-    rurl += qStr;
+    var qName = ops.val();
+    var qValue = $('#inpt01').val();
+    if (qName) {
+        rurl += qName + '=';
+        if (qName === 'ID') {
+            rurl += qValue;
+        } else {
+            rurl += "'" + qValue + "'";
+        }
+    }
 
     xhr.onreadystatechange = handler;
     xhr.open('GET', rurl, true);
@@ -25,7 +31,7 @@ function retrieveData() {
             if (xhr.status == 200) {
                 document.getElementById('timeLogTb').innerHTML = xhr.responseText;
             } else {
-                alert('Error with Ajax call!');
+                alert('Error with Ajax call!\n' + xhr.responseText);
             }
         }
     }
