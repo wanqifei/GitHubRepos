@@ -31,7 +31,7 @@ function retrieveData() {
             if (xhr.status == 200) {
                 document.getElementById('timeLogTb').innerHTML = xhr.responseText;
             } else {
-                alert('Error with Ajax call!\n' + xhr.responseText);
+                alert('错误！\n' + xhr.responseText);
             }
         }
     }
